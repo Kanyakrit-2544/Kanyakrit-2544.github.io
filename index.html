@@ -311,7 +311,8 @@
     margin-top: 8px;
   }
   /* even (future): image right */
-  .cs-alt.even .cs-visual { order: 2; }
+  .cs-alt.even .cs-visual,
+  .cs-alt.even .cs-carousel { order: 2; }
   .cs-alt.even .cs-info  { order: 1; }
 
   .cs-visual {
@@ -362,6 +363,143 @@
     text-decoration: none; font-weight: 500;
   }
   .cs-link:hover { text-decoration: underline; }
+
+  /* ── Work carousel (recreated 3S site screens) ── */
+  .cs-carousel {
+    --b-navy:#0A2540; --b-ink:#0F1E36; --b-blue:#1366D6; --b-blued:#0E4FA8;
+    --b-sky:#3AA0E8; --b-cyan:#22D3EE; --b-light:#EAF2FD; --b-gray:#F5F7FB;
+    position: relative;
+    aspect-ratio: 16 / 9;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 6px 28px rgba(15,30,54,0.10);
+  }
+  .cs-track { display: flex; height: 100%; transition: transform .6s cubic-bezier(.16,1,.3,1); }
+  .cs-slide {
+    min-width: 100%; height: 100%;
+    position: relative; overflow: hidden;
+    font-family: var(--sans); color: #fff;
+  }
+
+  .cs-dots {
+    position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);
+    display: flex; gap: 6px; z-index: 6;
+  }
+  .cs-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: rgba(255,255,255,.5); border: none; padding: 0;
+    cursor: pointer; transition: background .2s, width .2s;
+    box-shadow: 0 0 0 1px rgba(10,37,64,.18);
+  }
+  .cs-dot.active { background: #fff; width: 16px; border-radius: 3px; }
+
+  .cs-arrow {
+    position: absolute; top: 50%; transform: translateY(-50%); z-index: 6;
+    width: 26px; height: 26px; border-radius: 50%; border: none; cursor: pointer;
+    background: rgba(10,37,64,.55); color: #fff; font-size: 15px; line-height: 1;
+    display: flex; align-items: center; justify-content: center;
+    backdrop-filter: blur(4px);
+    opacity: 0; transition: opacity .2s, background .2s;
+  }
+  .cs-carousel:hover .cs-arrow { opacity: 1; }
+  .cs-arrow:hover { background: var(--b-blue); }
+  .cs-arrow.prev { left: 8px; }
+  .cs-arrow.next { right: 8px; }
+
+  /* Slide 1 — Home */
+  .s-home { background: linear-gradient(135deg, #0A2540 0%, #0E4FA8 100%); }
+  .s-home::before {
+    content: ''; position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+  .m-topbar {
+    position: relative; z-index: 2;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 9px 14px;
+  }
+  .m-logo { font-family: var(--display); font-size: 10px; font-weight: 500; color: #fff; letter-spacing: .06em; }
+  .m-logo b { color: var(--b-sky); }
+  .m-links { display: flex; gap: 10px; font-size: 8px; color: rgba(255,255,255,.7); }
+  .m-top-right { display: flex; align-items: center; gap: 7px; }
+  .m-lang { font-size: 7px; color: rgba(255,255,255,.6); border: 1px solid rgba(255,255,255,.25); padding: 1px 5px; border-radius: 100px; }
+  .m-cta { font-size: 8px; font-weight: 500; background: var(--b-blue); color: #fff; padding: 3px 8px; border-radius: 5px; }
+  .m-hero-wrap { position: relative; z-index: 2; padding: 5% 14px 0; }
+  .m-pill {
+    display: inline-block; font-size: 7px; color: var(--b-cyan);
+    border: 1px solid rgba(34,211,238,.35); background: rgba(34,211,238,.08);
+    padding: 2px 7px; border-radius: 100px; margin-bottom: 9px;
+  }
+  .m-title { font-family: var(--display); font-size: clamp(14px, 3vw, 22px); font-weight: 600; line-height: 1.15; color: #fff; margin-bottom: 7px; }
+  .m-desc { font-size: 8px; color: rgba(255,255,255,.72); margin-bottom: 11px; max-width: 82%; line-height: 1.4; }
+  .m-btns { display: flex; gap: 6px; }
+  .m-btn { font-size: 8px; font-weight: 500; padding: 4px 10px; border-radius: 5px; }
+  .m-btn.b { background: var(--b-blue); color: #fff; }
+  .m-btn.g { background: rgba(255,255,255,.1); color: #fff; border: 1px solid rgba(255,255,255,.25); }
+
+  /* Slide 2 — Services */
+  .s-services { background: var(--b-gray); color: var(--b-ink); padding: 14px; }
+  .s-head { text-align: center; margin-bottom: 10px; }
+  .s-h-title { font-family: var(--display); font-size: 13px; font-weight: 600; color: var(--b-navy); }
+  .s-h-sub { font-size: 8px; color: #6b7a90; letter-spacing: .12em; text-transform: uppercase; margin-top: 1px; }
+  .m-grid6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; }
+  .m-svc {
+    background: #fff; border: 1px solid #e4ebf5; border-radius: 7px;
+    padding: 9px 7px; display: flex; flex-direction: column; gap: 5px;
+    box-shadow: 0 1px 2px rgba(15,30,54,.04);
+  }
+  .m-svc-ic { width: 19px; height: 19px; border-radius: 5px; background: var(--b-light); display: flex; align-items: center; justify-content: center; font-size: 10px; }
+  .m-svc-name { font-size: 8.5px; font-weight: 600; color: var(--b-ink); }
+
+  /* Slide 3 — Portfolio */
+  .s-portfolio { background: #fff; color: var(--b-ink); padding: 14px; }
+  .s-portfolio .s-h-sub { color: #6b7a90; }
+  .m-filters { display: flex; gap: 5px; justify-content: center; margin-bottom: 10px; }
+  .m-fl { font-size: 7px; padding: 2px 8px; border-radius: 100px; background: var(--b-gray); color: #6b7a90; }
+  .m-fl.active { background: var(--b-blue); color: #fff; }
+  .m-grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; }
+  .m-proj { border: 1px solid #e4ebf5; border-radius: 7px; overflow: hidden; box-shadow: 0 1px 2px rgba(15,30,54,.04); }
+  .m-proj-cover { height: 36px; position: relative; }
+  .m-proj-cover.c1 { background: linear-gradient(135deg, #0EA5E9, #1d4ed8); }
+  .m-proj-cover.c2 { background: linear-gradient(135deg, #06b6d4, #2563eb); }
+  .m-proj-cover.c3 { background: linear-gradient(135deg, #6366f1, #1d4ed8); }
+  .m-proj-tag { position: absolute; top: 5px; left: 5px; font-size: 6px; background: rgba(255,255,255,.92); color: var(--b-navy); padding: 1px 6px; border-radius: 100px; font-weight: 600; }
+  .m-proj-body { padding: 6px 7px; }
+  .m-proj-name { font-size: 7.5px; font-weight: 600; color: var(--b-ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .m-proj-loc { font-size: 6.5px; color: #7a8aa0; margin-top: 1px; }
+
+  /* Slide 4 — Admin CMS */
+  .s-admin { background: #0F1E36; display: flex; }
+  .m-admin-side { width: 32%; background: #0A2540; border-right: 1px solid rgba(255,255,255,.06); padding: 11px 9px; }
+  .m-admin-logo { font-family: var(--display); font-size: 9px; font-weight: 600; color: #fff; margin-bottom: 11px; }
+  .m-admin-nav { display: flex; flex-direction: column; gap: 4px; }
+  .m-admin-nav span { font-size: 7.5px; color: rgba(255,255,255,.55); padding: 4px 6px; border-radius: 4px; }
+  .m-admin-nav span.active { background: var(--b-blue); color: #fff; }
+  .m-admin-main { flex: 1; background: #F5F7FB; padding: 11px; }
+  .m-admin-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+  .m-admin-h { font-size: 11px; font-weight: 600; color: var(--b-ink); font-family: var(--display); }
+  .m-admin-add { font-size: 7px; background: var(--b-blue); color: #fff; padding: 4px 8px; border-radius: 5px; }
+  .m-admin-table { background: #fff; border: 1px solid #e4ebf5; border-radius: 6px; overflow: hidden; }
+  .m-row { display: grid; grid-template-columns: 1.6fr 1fr .8fr; gap: 4px; padding: 6px 8px; font-size: 7px; color: var(--b-ink); border-bottom: 1px solid #eef2f8; align-items: center; }
+  .m-row.h { background: #eef3fb; color: #6b7a90; font-weight: 600; }
+  .m-row:last-child { border-bottom: none; }
+  .m-badge { font-size: 6px; background: #dcfce7; color: #166534; padding: 1px 6px; border-radius: 100px; text-align: center; }
+
+  /* Slide 5 — Contact / Quote form */
+  .s-contact { background: var(--b-gray); display: flex; gap: 10px; padding: 14px; color: var(--b-ink); }
+  .m-contact-form { flex: 1.25; background: #fff; border: 1px solid #e4ebf5; border-radius: 8px; padding: 11px; box-shadow: 0 1px 2px rgba(15,30,54,.04); }
+  .s-h-title.sm { font-size: 10px; margin-bottom: 8px; text-align: left; }
+  .m-field { height: 9px; background: #eef3fb; border: 1px solid #e0e8f3; border-radius: 4px; margin-bottom: 6px; }
+  .m-field.tall { height: 22px; }
+  .m-submit { font-size: 8px; font-weight: 600; background: var(--b-blue); color: #fff; text-align: center; padding: 6px; border-radius: 5px; margin-top: 3px; }
+  .m-contact-info { flex: 1; background: var(--b-navy); border-radius: 8px; padding: 11px; color: #fff; display: flex; flex-direction: column; gap: 8px; }
+  .m-info-row { display: flex; gap: 6px; align-items: flex-start; font-size: 7.5px; color: rgba(255,255,255,.82); line-height: 1.3; }
+  .m-info-ic { color: var(--b-sky); }
+  .m-info-note { margin-top: auto; font-size: 6.5px; color: var(--b-cyan); border-top: 1px solid rgba(255,255,255,.12); padding-top: 7px; line-height: 1.4; }
 
   /* ── 5. Services / Pricing ── */
   #services { padding: 72px 0; }
@@ -515,9 +653,11 @@
       grid-template-columns: 1fr;
       gap: 28px;
     }
-    .cs-alt.even .cs-visual { order: unset; }
+    .cs-alt.even .cs-visual,
+    .cs-alt.even .cs-carousel { order: unset; }
     .cs-alt.even .cs-info  { order: unset; }
     .cs-visual { aspect-ratio: 16 / 7; }
+    .cs-carousel { aspect-ratio: 16 / 10; }
 
     .pricing-grid { grid-template-columns: 1fr; }
 
@@ -666,10 +806,132 @@
 
     <!-- Block 1: image left, text right -->
     <div class="cs-alt">
-      <div class="cs-visual">
-        <!-- TODO: replace with real screenshot -->
-        3S Suksonsin Website
+
+      <!-- Sliding preview of the live 3S Suksonsin site (5 recreated screens) -->
+      <div class="cs-carousel" id="csCarousel" aria-label="3S Suksonsin website preview">
+        <div class="cs-track">
+
+          <!-- Slide 1 — Home -->
+          <div class="cs-slide s-home">
+            <div class="m-topbar">
+              <span class="m-logo">3S <b>SUKSONSIN</b></span>
+              <div class="m-links"><span>หน้าแรก</span><span>บริการ</span><span>ผลงาน</span><span>ติดต่อ</span></div>
+              <div class="m-top-right">
+                <span class="m-lang">TH|EN</span>
+                <span class="m-cta">ขอใบเสนอราคา</span>
+              </div>
+            </div>
+            <div class="m-hero-wrap">
+              <span class="m-pill">System Integration Contractor</span>
+              <div class="m-title">Your System<br>Integration Solutions</div>
+              <div class="m-desc">ออกแบบ ติดตั้ง และดูแลระบบ — ไฟเบอร์ · CCTV · เครือข่าย · ไร้สาย · PABX</div>
+              <div class="m-btns">
+                <span class="m-btn b">ขอใบเสนอราคา →</span>
+                <span class="m-btn g">ดูบริการ</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 2 — Services -->
+          <div class="cs-slide s-services">
+            <div class="s-head">
+              <div class="s-h-title">บริการของเรา</div>
+              <div class="s-h-sub">Our Services</div>
+            </div>
+            <div class="m-grid6">
+              <div class="m-svc"><div class="m-svc-ic">🔗</div><div class="m-svc-name">Fiber Optics</div></div>
+              <div class="m-svc"><div class="m-svc-ic">📷</div><div class="m-svc-name">CCTV System</div></div>
+              <div class="m-svc"><div class="m-svc-ic">🌐</div><div class="m-svc-name">LAN / WAN</div></div>
+              <div class="m-svc"><div class="m-svc-ic">📶</div><div class="m-svc-name">Wireless</div></div>
+              <div class="m-svc"><div class="m-svc-ic">☎️</div><div class="m-svc-name">PABX</div></div>
+              <div class="m-svc"><div class="m-svc-ic">🛠️</div><div class="m-svc-name">IT Support</div></div>
+            </div>
+          </div>
+
+          <!-- Slide 3 — Portfolio -->
+          <div class="cs-slide s-portfolio">
+            <div class="s-head">
+              <div class="s-h-title">ผลงานของเรา</div>
+              <div class="s-h-sub">Selected Projects</div>
+            </div>
+            <div class="m-filters">
+              <span class="m-fl active">ทั้งหมด</span>
+              <span class="m-fl">CCTV</span>
+              <span class="m-fl">Fiber</span>
+              <span class="m-fl">Network</span>
+            </div>
+            <div class="m-grid3">
+              <div class="m-proj">
+                <div class="m-proj-cover c1"><span class="m-proj-tag">CCTV</span></div>
+                <div class="m-proj-body"><div class="m-proj-name">สำนักงานเขตสายไหม</div><div class="m-proj-loc">Bangkok · 2024</div></div>
+              </div>
+              <div class="m-proj">
+                <div class="m-proj-cover c2"><span class="m-proj-tag">Fiber</span></div>
+                <div class="m-proj-body"><div class="m-proj-name">ABC Manufacturing</div><div class="m-proj-loc">Pathum Thani · 2023</div></div>
+              </div>
+              <div class="m-proj">
+                <div class="m-proj-cover c3"><span class="m-proj-tag">Network</span></div>
+                <div class="m-proj-body"><div class="m-proj-name">Enterprise Co.</div><div class="m-proj-loc">Bangkok · 2024</div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 4 — Admin CMS -->
+          <div class="cs-slide s-admin">
+            <div class="m-admin-side">
+              <div class="m-admin-logo">3S Admin</div>
+              <div class="m-admin-nav">
+                <span>▦ Dashboard</span>
+                <span class="active">▤ Projects</span>
+                <span>☺ Clients</span>
+                <span>✉ Inbox</span>
+              </div>
+            </div>
+            <div class="m-admin-main">
+              <div class="m-admin-top">
+                <span class="m-admin-h">Projects</span>
+                <span class="m-admin-add">+ เพิ่มผลงาน</span>
+              </div>
+              <div class="m-admin-table">
+                <div class="m-row h"><span>Client</span><span>Service</span><span>Status</span></div>
+                <div class="m-row"><span>Sai Mai District</span><span>CCTV</span><span class="m-badge">Live</span></div>
+                <div class="m-row"><span>ABC Plant</span><span>Fiber</span><span class="m-badge">Live</span></div>
+                <div class="m-row"><span>Enterprise Co.</span><span>Network</span><span class="m-badge">Live</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 5 — Contact / Quote form -->
+          <div class="cs-slide s-contact">
+            <div class="m-contact-form">
+              <div class="s-h-title sm">ขอใบเสนอราคา</div>
+              <div class="m-field"></div>
+              <div class="m-field"></div>
+              <div class="m-field"></div>
+              <div class="m-field tall"></div>
+              <div class="m-submit">ส่งคำขอ →</div>
+            </div>
+            <div class="m-contact-info">
+              <div class="m-info-row"><span class="m-info-ic">📞</span><span>02-994-3423</span></div>
+              <div class="m-info-row"><span class="m-info-ic">✉️</span><span>info@suksonsin.com</span></div>
+              <div class="m-info-row"><span class="m-info-ic">📍</span><span>สายไหม, กรุงเทพฯ 10220</span></div>
+              <div class="m-info-note">→ บันทึกลง Database + Google Sheet + Email พร้อมกัน</div>
+            </div>
+          </div>
+
+        </div>
+
+        <button class="cs-arrow prev" aria-label="Previous slide">‹</button>
+        <button class="cs-arrow next" aria-label="Next slide">›</button>
+        <div class="cs-dots">
+          <button class="cs-dot active" aria-label="Slide 1"></button>
+          <button class="cs-dot" aria-label="Slide 2"></button>
+          <button class="cs-dot" aria-label="Slide 3"></button>
+          <button class="cs-dot" aria-label="Slide 4"></button>
+          <button class="cs-dot" aria-label="Slide 5"></button>
+        </div>
       </div>
+
       <div class="cs-info">
         <div class="cs-tags">
           <span class="cs-tag">React</span>
@@ -848,10 +1110,39 @@
 </footer>
 
 <script>
+// Add border to nav on scroll
 window.addEventListener('scroll', () => {
   document.querySelector('nav').style.borderBottomColor =
     window.scrollY > 10 ? 'var(--border)' : 'transparent';
 });
+
+// Work-section carousel: auto-slide + dots + arrows, pauses on hover
+(function () {
+  var car = document.getElementById('csCarousel');
+  if (!car) return;
+  var track  = car.querySelector('.cs-track');
+  var slides = car.querySelectorAll('.cs-slide');
+  var dots   = car.querySelectorAll('.cs-dot');
+  var i = 0, timer = null;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function go(n) {
+    i = (n + slides.length) % slides.length;
+    track.style.transform = 'translateX(' + (-i * 100) + '%)';
+    dots.forEach(function (d, k) { d.classList.toggle('active', k === i); });
+  }
+  function start() { if (reduce) return; stop(); timer = setInterval(function () { go(i + 1); }, 3500); }
+  function stop()  { if (timer) { clearInterval(timer); timer = null; } }
+
+  dots.forEach(function (d, k) { d.addEventListener('click', function () { go(k); start(); }); });
+  car.querySelector('.cs-arrow.prev').addEventListener('click', function () { go(i - 1); start(); });
+  car.querySelector('.cs-arrow.next').addEventListener('click', function () { go(i + 1); start(); });
+  car.addEventListener('mouseenter', stop);
+  car.addEventListener('mouseleave', start);
+
+  go(0);
+  start();
+})();
 </script>
 
 </body>
