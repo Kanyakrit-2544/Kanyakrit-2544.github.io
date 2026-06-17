@@ -1,0 +1,5 @@
+# Claude Code local preview config (not needed for the site)
+.claude/
+
+# OS files
+.DS_Store

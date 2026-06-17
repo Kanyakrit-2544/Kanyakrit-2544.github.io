@@ -34,15 +34,16 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  /* Nav */
+  /* ── Nav ── */
   nav {
     position: sticky; top: 0; z-index: 10;
-    background: rgba(250,250,249,0.9);
+    background: rgba(250,250,249,0.92);
     backdrop-filter: blur(8px);
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid transparent;
     padding: 0 2rem;
     display: flex; align-items: center; justify-content: space-between;
     height: 56px;
+    transition: border-color .2s;
   }
   .nav-name {
     font-family: var(--display);
@@ -56,57 +57,13 @@
   }
   .nav-links a:hover { color: var(--text); }
 
-  /* Layout */
-  .container { max-width: 720px; margin: 0 auto; padding: 0 2rem; }
+  /* ── Layout ── */
+  .container { max-width: 1040px; margin: 0 auto; padding: 0 2rem; }
 
   section { padding: 80px 0; border-bottom: 1px solid var(--border); }
   section:last-of-type { border-bottom: none; }
 
-  /* Hero */
-  #hero { padding: 100px 0 80px; }
-  .eyebrow {
-    font-size: 12px; font-weight: 500; letter-spacing: .08em;
-    color: var(--accent); text-transform: uppercase;
-    margin-bottom: 20px;
-  }
-  h1 {
-    font-family: var(--display);
-    font-size: clamp(32px, 6vw, 48px);
-    font-weight: 500; line-height: 1.2;
-    margin-bottom: 20px;
-    letter-spacing: -.02em;
-  }
-  h1 span { color: var(--muted); }
-  .hero-desc {
-    font-size: 16px; color: var(--muted);
-    max-width: 520px; margin-bottom: 36px; line-height: 1.75;
-  }
-  .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
-  .btn-primary {
-    background: var(--text); color: var(--bg);
-    padding: 10px 20px; border-radius: 6px;
-    font-size: 14px; font-weight: 500;
-    text-decoration: none; transition: opacity .2s;
-    display: inline-block;
-  }
-  .btn-primary:hover { opacity: .8; }
-  .btn-outline {
-    background: transparent; color: var(--text);
-    border: 1px solid var(--border);
-    padding: 10px 20px; border-radius: 6px;
-    font-size: 14px; font-weight: 500;
-    text-decoration: none; transition: border-color .2s, background .2s;
-    display: inline-block;
-  }
-  .btn-outline:hover { background: var(--surface); border-color: #ccc; }
-
-  /* Stats */
-  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin-top: 60px; }
-  .stat { background: var(--bg); padding: 24px 20px; }
-  .stat-num { font-family: var(--display); font-size: 36px; font-weight: 500; color: var(--text); line-height: 1; }
-  .stat-label { font-size: 12px; color: var(--muted); margin-top: 6px; }
-
-  /* Section headings */
+  /* ── Section labels ── */
   .section-label {
     font-size: 11px; font-weight: 500; letter-spacing: .1em;
     color: var(--muted); text-transform: uppercase;
@@ -118,65 +75,355 @@
   }
   h2 { font-family: var(--display); font-size: 26px; font-weight: 500; margin-bottom: 8px; }
 
-  /* Services */
-  .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 8px; }
-  .service-card {
-    background: var(--surface); border-radius: 10px;
-    padding: 20px; border: 1px solid transparent;
+  /* ── Buttons ── */
+  .btn-primary {
+    background: var(--text); color: var(--bg);
+    padding: 10px 22px; border-radius: 6px;
+    font-size: 14px; font-weight: 500;
+    text-decoration: none; transition: opacity .2s;
+    display: inline-block;
+  }
+  .btn-primary:hover { opacity: .8; }
+  .btn-outline {
+    background: transparent; color: var(--text);
+    border: 1px solid var(--border);
+    padding: 10px 22px; border-radius: 6px;
+    font-size: 14px; font-weight: 500;
+    text-decoration: none; transition: border-color .2s, background .2s;
+    display: inline-block;
+  }
+  .btn-outline:hover { background: var(--surface); border-color: #ccc; }
+  .btn-full { display: block; text-align: center; width: 100%; }
+
+  /* ── Availability badge ── */
+  .avail {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 12px; color: #166534;
+    background: #f0fdf4; border: 1px solid #bbf7d0;
+    padding: 4px 10px; border-radius: 100px; margin-bottom: 20px;
+  }
+  .avail-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #22c55e; animation: pulse 2s infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+
+  /* ── 1. Hero ── */
+  #hero { padding: 80px 0 72px; }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 55fr 45fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .eyebrow {
+    font-size: 12px; font-weight: 500; letter-spacing: .08em;
+    color: var(--accent); text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  h1 {
+    font-family: var(--display);
+    font-size: clamp(30px, 4.5vw, 46px);
+    font-weight: 500; line-height: 1.18;
+    margin-bottom: 20px;
+    letter-spacing: -.02em;
+  }
+  .hero-desc {
+    font-size: 16px; color: var(--muted);
+    margin-bottom: 32px; line-height: 1.75;
+  }
+  .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+  /* Mockup card */
+  .mockup-card {
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    box-shadow: 0 4px 32px rgba(0,0,0,0.07), 0 1px 4px rgba(0,0,0,0.04);
+  }
+  .browser-bar {
+    background: var(--surface);
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .dot {
+    width: 10px; height: 10px; border-radius: 50%;
+  }
+  .dot:nth-child(1) { background: #ff5f57; }
+  .dot:nth-child(2) { background: #febc2e; }
+  .dot:nth-child(3) { background: #28c840; }
+  .url-bar {
+    margin-left: 8px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 3px 10px;
+    font-size: 11px;
+    color: var(--muted);
+    font-family: var(--mono);
+    flex: 1;
+  }
+  .mini-site {
+    padding: 0;
+  }
+  .mini-nav-bar {
+    background: #1A1A1A;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .mini-logo {
+    font-family: var(--display);
+    font-size: 11px;
+    font-weight: 500;
+    color: #fff;
+    letter-spacing: .05em;
+  }
+  .mini-nav-links {
+    display: flex; gap: 10px;
+  }
+  .mini-nav-link {
+    width: 28px; height: 4px;
+    background: rgba(255,255,255,0.3);
+    border-radius: 2px;
+  }
+  .mini-hero-area {
+    background: #1e3a6b;
+    padding: 22px 16px 20px;
+  }
+  .mini-h1 { font-family: var(--display); font-size: 14px; font-weight: 500; color: #fff; line-height: 1.3; margin-bottom: 6px; }
+  .mini-sub { font-size: 9px; color: rgba(255,255,255,.6); margin-bottom: 12px; }
+  .mini-btn {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    font-size: 9px;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-weight: 500;
+  }
+  .mini-services {
+    padding: 12px 16px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+  }
+  .mini-card {
+    background: var(--surface);
+    border-radius: 5px;
+    padding: 8px 6px;
+  }
+  .mini-card-icon {
+    width: 14px; height: 14px;
+    background: var(--border);
+    border-radius: 3px;
+    margin-bottom: 5px;
+  }
+  .mini-card-line {
+    width: 80%; height: 3px;
+    background: var(--border);
+    border-radius: 2px;
+    margin-bottom: 3px;
+  }
+  .mini-card-line.short { width: 55%; }
+  .mini-footer-bar {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .mini-footer-dot {
+    width: 6px; height: 6px;
+    background: #22c55e;
+    border-radius: 50%;
+  }
+  .mini-footer-text {
+    font-size: 9px;
+    color: var(--muted);
+    font-family: var(--mono);
+  }
+
+  /* ── 2. Stats bar ── */
+  .stats-bar {
+    background: var(--surface);
+    padding: 40px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .stats-inner {
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+  .stat-item { text-align: center; }
+  .stat-num {
+    font-family: var(--display);
+    font-size: 26px; font-weight: 500;
+    color: var(--text); line-height: 1;
+  }
+  .stat-label {
+    font-size: 13px; color: var(--muted); margin-top: 6px;
+  }
+  .stat-divider {
+    width: 1px; height: 40px; background: var(--border);
+  }
+
+  /* ── 3. Features ── */
+  #features { padding: 72px 0; }
+  .features-heading {
+    font-family: var(--display);
+    font-size: 26px; font-weight: 500;
+    margin-bottom: 32px;
+  }
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .feature-card {
+    background: var(--surface);
+    border-radius: 10px;
+    padding: 24px;
+    border: 1px solid transparent;
     transition: border-color .2s;
   }
-  .service-card:hover { border-color: var(--border); }
-  .service-icon { font-size: 20px; margin-bottom: 12px; }
-  .service-name { font-size: 14px; font-weight: 500; margin-bottom: 4px; }
-  .service-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+  .feature-card:hover { border-color: var(--border); }
+  .feature-icon { font-size: 22px; margin-bottom: 12px; }
+  .feature-title { font-size: 15px; font-weight: 500; margin-bottom: 6px; }
+  .feature-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
 
-  /* Case study */
-  .case-study {
-    border: 1px solid var(--border); border-radius: 12px;
-    overflow: hidden; margin-top: 8px;
+  /* ── 4. Case study alternating ── */
+  #work { padding: 72px 0; }
+  .cs-alt {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    align-items: center;
+    margin-top: 8px;
   }
-  .cs-header { padding: 28px 28px 20px; border-bottom: 1px solid var(--border); }
+  /* even (future): image right */
+  .cs-alt.even .cs-visual { order: 2; }
+  .cs-alt.even .cs-info  { order: 1; }
+
+  .cs-visual {
+    aspect-ratio: 16 / 9;
+    background: var(--surface);
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--muted);
+    text-align: center;
+    padding: 16px;
+  }
   .cs-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
   .cs-tag {
     font-family: var(--mono); font-size: 11px;
     background: var(--surface); color: var(--muted);
     padding: 3px 8px; border-radius: 4px; border: 1px solid var(--border);
   }
-  .cs-title { font-family: var(--display); font-size: 20px; font-weight: 500; margin-bottom: 4px; }
-  .cs-client { font-size: 13px; color: var(--muted); }
-  .cs-body { padding: 24px 28px; }
-  .cs-block { margin-bottom: 24px; }
-  .cs-block:last-child { margin-bottom: 0; }
-  .cs-block-label {
-    font-size: 11px; font-weight: 500; letter-spacing: .08em;
-    color: var(--muted); text-transform: uppercase;
-    margin-bottom: 10px;
+  .cs-title {
+    font-family: var(--display); font-size: 20px; font-weight: 500;
+    margin-bottom: 4px; line-height: 1.3;
   }
-  .cs-text { font-size: 14px; color: var(--text); line-height: 1.7; }
-  .cs-features { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .cs-client { font-size: 13px; color: var(--muted); margin-bottom: 18px; }
+  .cs-features { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
   .cs-features li {
     font-size: 14px; color: var(--text);
-    padding-left: 16px; position: relative; line-height: 1.6;
+    padding-left: 18px; position: relative; line-height: 1.6;
   }
   .cs-features li::before {
     content: '→'; position: absolute; left: 0;
-    color: var(--accent); font-size: 12px; top: 2px;
+    color: var(--accent); font-size: 12px; top: 3px;
   }
-  .cs-metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
-  .cs-metric { background: var(--surface); border-radius: 8px; padding: 14px 12px; text-align: center; }
-  .cs-metric-num { font-family: var(--display); font-size: 22px; font-weight: 500; color: var(--text); }
-  .cs-metric-label { font-size: 11px; color: var(--muted); margin-top: 3px; line-height: 1.3; }
-  .stack-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-  .stack-table td { padding: 7px 0; border-bottom: 1px solid var(--border); vertical-align: top; }
-  .stack-table td:first-child { color: var(--muted); width: 90px; }
-  .stack-table tr:last-child td { border-bottom: none; }
   .cs-result {
-    background: var(--accent-light); border-radius: 8px;
-    padding: 14px 16px; font-size: 14px; color: #1e40af;
-    line-height: 1.6; border-left: 3px solid var(--accent);
+    background: var(--accent-light);
+    border-radius: 8px;
+    padding: 14px 16px;
+    font-size: 14px; color: #1e40af;
+    line-height: 1.6;
+    border-left: 3px solid var(--accent);
+    margin-bottom: 16px;
+  }
+  .cs-link {
+    font-size: 14px; color: var(--accent);
+    text-decoration: none; font-weight: 500;
+  }
+  .cs-link:hover { text-decoration: underline; }
+
+  /* ── 5. Services / Pricing ── */
+  #services { padding: 72px 0; }
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 8px;
+    align-items: start;
+  }
+  .pricing-card {
+    background: var(--surface);
+    border-radius: 12px;
+    padding: 28px 24px;
+    border: 1px solid var(--border);
+    position: relative;
+  }
+  .pricing-card.featured {
+    border: 2px solid var(--accent);
+    background: #fff;
+  }
+  .badge {
+    position: absolute;
+    top: -11px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--accent);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 12px;
+    border-radius: 100px;
+    white-space: nowrap;
+    font-family: var(--sans);
+  }
+  .pricing-name {
+    font-family: var(--display);
+    font-size: 17px; font-weight: 500;
+    margin-bottom: 6px;
+  }
+  .pricing-price {
+    font-size: 14px; color: var(--muted);
+    margin-bottom: 20px;
+    font-family: var(--sans);
+  }
+  .pricing-features {
+    list-style: none;
+    margin-bottom: 24px;
+    display: flex; flex-direction: column; gap: 9px;
+  }
+  .pricing-features li {
+    font-size: 13px; color: var(--text);
+    padding-left: 18px; position: relative; line-height: 1.5;
+  }
+  .pricing-features li::before {
+    content: '✓';
+    position: absolute; left: 0;
+    color: var(--accent); font-size: 12px;
   }
 
-  /* Skills */
+  /* ── Skills ── */
+  #skills { padding: 72px 0; }
   .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-top: 8px; }
   .skill-group { background: var(--surface); border-radius: 10px; padding: 20px; }
   .skill-group-name { font-size: 13px; font-weight: 500; margin-bottom: 12px; }
@@ -187,7 +434,8 @@
     padding: 3px 9px; color: var(--text);
   }
 
-  /* Contact */
+  /* ── 7. Contact ── */
+  #contact { padding: 72px 0; }
   .contact-links { display: flex; flex-direction: column; gap: 12px; margin-top: 24px; }
   .contact-link {
     display: flex; align-items: center; gap: 14px;
@@ -201,34 +449,81 @@
   .contact-label { font-size: 14px; font-weight: 500; }
   .contact-sub { font-size: 12px; color: var(--muted); margin-top: 1px; }
 
-  /* Footer */
+  /* ── 6. Footer CTA ── */
+  .footer-cta {
+    background: #1A1A1A;
+    padding: 80px 2rem;
+    text-align: center;
+  }
+  .footer-cta-tagline {
+    font-family: var(--display);
+    font-size: clamp(24px, 4vw, 38px);
+    font-weight: 500;
+    font-style: italic;
+    color: #fff;
+    margin-bottom: 12px;
+    letter-spacing: -.01em;
+  }
+  .footer-cta-sub {
+    color: #9ca3af;
+    font-size: 15px;
+    margin-bottom: 28px;
+  }
+  .btn-white {
+    background: #fff;
+    color: #1A1A1A;
+    padding: 11px 24px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    display: inline-block;
+    transition: opacity .2s;
+  }
+  .btn-white:hover { opacity: .85; }
+
+  /* ── Footer ── */
   footer {
-    text-align: center; padding: 40px 2rem;
+    text-align: center; padding: 28px 2rem;
     font-size: 13px; color: var(--muted);
     border-top: 1px solid var(--border);
   }
 
-  /* Availability badge */
-  .avail {
-    display: inline-flex; align-items: center; gap: 6px;
-    font-size: 12px; color: #166534;
-    background: #f0fdf4; border: 1px solid #bbf7d0;
-    padding: 4px 10px; border-radius: 100px; margin-bottom: 20px;
-  }
-  .avail-dot {
-    width: 6px; height: 6px; border-radius: 50%;
-    background: #22c55e; animation: pulse 2s infinite;
-  }
-  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
-
+  /* ── Responsive ── */
   @media (max-width: 600px) {
     nav { padding: 0 1.25rem; }
     .nav-links { display: none; }
     .container { padding: 0 1.25rem; }
-    section { padding: 60px 0; }
-    .stats { grid-template-columns: 1fr 1fr; }
-    .cs-metrics { grid-template-columns: repeat(2, 1fr); }
-    .cs-header, .cs-body { padding: 20px; }
+    section { padding: 56px 0; }
+
+    .hero-grid {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+    .hero-right { order: 2; }
+
+    .stats-inner {
+      flex-direction: column;
+      gap: 24px;
+      padding: 0 1.25rem;
+    }
+    .stat-divider { width: 40px; height: 1px; }
+
+    .features-grid { grid-template-columns: 1fr; }
+
+    .cs-alt {
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+    .cs-alt.even .cs-visual { order: unset; }
+    .cs-alt.even .cs-info  { order: unset; }
+    .cs-visual { aspect-ratio: 16 / 7; }
+
+    .pricing-grid { grid-template-columns: 1fr; }
+
+    .skills-grid { grid-template-columns: 1fr; }
+
+    #features, #work, #services, #skills, #contact { padding: 56px 0; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -238,7 +533,8 @@
 </head>
 <body>
 
-<nav>
+<!-- Nav -->
+<nav id="nav">
   <a href="#" class="nav-name">Kanyakrit</a>
   <ul class="nav-links">
     <li><a href="#services">Services</a></li>
@@ -248,144 +544,211 @@
   </ul>
 </nav>
 
-<!-- Hero -->
+<!-- ─── 1. Hero ─── -->
 <section id="hero">
   <div class="container">
-    <div class="avail"><span class="avail-dot"></span> Available for new projects</div>
-    <p class="eyebrow">IT Support & Web Builder · Bangkok, Thailand</p>
-    <h1>I fix problems,<br><span>then build the tools</span><br>that prevent them.</h1>
-    <p class="hero-desc">
-      I help small businesses and teams get online faster — with AI-assisted web development, network setup, and IT support. Remote-friendly.
-    </p>
-    <div class="hero-actions">
-      <a href="#work" class="btn-primary">See my work</a>
-      <a href="#contact" class="btn-outline">Get in touch</a>
-    </div>
+    <div class="hero-grid">
 
-    <div class="stats">
-      <div class="stat">
-        <div class="stat-num">Full</div>
-        <div class="stat-label">Stack web development</div>
+      <!-- Left: text -->
+      <div class="hero-left">
+        <p class="eyebrow">IT Support &amp; Web Builder · Bangkok, Thailand</p>
+        <div class="avail"><span class="avail-dot"></span> Available for new projects</div>
+        <h1>I fix problems,<br>then build the tools<br>that prevent them.</h1>
+        <p class="hero-desc">
+          I help small businesses get online faster — AI-assisted web development, network setup, and IT support. Remote-friendly.
+        </p>
+        <div class="hero-actions">
+          <a href="#work" class="btn-primary">See my work</a>
+          <a href="#contact" class="btn-outline">Get in touch</a>
+        </div>
       </div>
-      <div class="stat">
-        <div class="stat-num">2×</div>
-        <div class="stat-label">Faster with AI tools</div>
+
+      <!-- Right: mockup card -->
+      <div class="hero-right">
+        <div class="mockup-card">
+          <div class="browser-bar">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <div class="url-bar">3ssuksonsin.com</div>
+          </div>
+          <div class="mini-site">
+            <div class="mini-nav-bar">
+              <div class="mini-logo">3S SUKSONSIN</div>
+              <div class="mini-nav-links">
+                <div class="mini-nav-link"></div>
+                <div class="mini-nav-link"></div>
+                <div class="mini-nav-link"></div>
+              </div>
+            </div>
+            <div class="mini-hero-area">
+              <div class="mini-h1">Corporate IT &amp;<br>Network Solutions</div>
+              <div class="mini-sub">Fiber Optics · CCTV · Networking · PABX</div>
+              <span class="mini-btn">Request a quote</span>
+            </div>
+            <div class="mini-services">
+              <div class="mini-card">
+                <div class="mini-card-icon"></div>
+                <div class="mini-card-line"></div>
+                <div class="mini-card-line short"></div>
+              </div>
+              <div class="mini-card">
+                <div class="mini-card-icon"></div>
+                <div class="mini-card-line"></div>
+                <div class="mini-card-line short"></div>
+              </div>
+              <div class="mini-card">
+                <div class="mini-card-icon"></div>
+                <div class="mini-card-line"></div>
+                <div class="mini-card-line short"></div>
+              </div>
+            </div>
+            <div class="mini-footer-bar">
+              <div class="mini-footer-dot"></div>
+              <div class="mini-footer-text">Admin CMS · JWT Auth · MySQL</div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="stat">
-        <div class="stat-num">TH/EN</div>
-        <div class="stat-label">Bilingual delivery</div>
-      </div>
+
     </div>
   </div>
 </section>
 
-<!-- Services -->
-<section id="services">
+<!-- ─── 2. Stats bar ─── -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <div class="stat-num">Full-stack</div>
+      <div class="stat-label">Web development</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <div class="stat-num">2× faster</div>
+      <div class="stat-label">With AI tools</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <div class="stat-num">TH / EN</div>
+      <div class="stat-label">Bilingual delivery</div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── 3. Features ─── -->
+<section id="features">
   <div class="container">
-    <p class="section-label">Services</p>
-    <div class="services-grid">
-      <div class="service-card">
-        <div class="service-icon">🌐</div>
-        <div class="service-name">Website creation</div>
-        <div class="service-desc">Landing pages, corporate sites, and admin systems — built with AI tools for speed without cutting corners.</div>
+    <h2 class="features-heading">Why clients choose me</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🌐</div>
+        <div class="feature-title">AI-powered builds</div>
+        <div class="feature-desc">Websites delivered faster using Claude and modern AI tools — without cutting quality.</div>
       </div>
-      <div class="service-card">
-        <div class="service-icon">🔧</div>
-        <div class="service-name">IT Support</div>
-        <div class="service-desc">Network setup, troubleshooting, and day-to-day tech support for offices and small teams. Remote or on-site.</div>
+      <div class="feature-card">
+        <div class="feature-icon">🔧</div>
+        <div class="feature-title">IT Support included</div>
+        <div class="feature-desc">Network setup, troubleshooting, and ongoing support bundled with every project.</div>
       </div>
-      <div class="service-card">
-        <div class="service-icon">📦</div>
-        <div class="service-name">Monthly care</div>
-        <div class="service-desc">Website maintenance + IT monitoring bundled together. One point of contact for all your tech needs.</div>
+      <div class="feature-card">
+        <div class="feature-icon">📄</div>
+        <div class="feature-title">Full documentation</div>
+        <div class="feature-desc">Every project ships with a Thai-language manual, so you're never dependent on me.</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Work / Case Study -->
+<!-- ─── 4. Work ─── -->
 <section id="work">
   <div class="container">
     <p class="section-label">Work</p>
-    <div class="case-study">
-      <div class="cs-header">
+
+    <!-- Block 1: image left, text right -->
+    <div class="cs-alt">
+      <div class="cs-visual">
+        <!-- TODO: replace with real screenshot -->
+        3S Suksonsin Website
+      </div>
+      <div class="cs-info">
         <div class="cs-tags">
           <span class="cs-tag">React</span>
           <span class="cs-tag">Node.js</span>
           <span class="cs-tag">MySQL</span>
-          <span class="cs-tag">Tailwind CSS</span>
-          <span class="cs-tag">JWT</span>
-          <span class="cs-tag">Google Apps Script</span>
+          <span class="cs-tag">Full-stack</span>
           <span class="cs-tag">AI-assisted</span>
         </div>
-        <div class="cs-title">3S Suksonsin — Corporate Website & Admin CMS</div>
+        <div class="cs-title">3S Suksonsin — Corporate Website &amp; Admin CMS</div>
         <div class="cs-client">Suksonsin Limited Partnership · B2B System Integration · 2024</div>
+        <ul class="cs-features">
+          <li>Bilingual TH/EN site with 8 pages and 6 service sub-pages</li>
+          <li>Quote form → Database + Google Sheets + Email simultaneously</li>
+          <li>Admin CMS with JWT auth, project management, and image upload</li>
+          <li>Deployed on Windows Server 2022 with full Thai documentation</li>
+        </ul>
+        <div class="cs-result">
+          The client now manages their own portfolio and quote pipeline — without needing a developer.
+        </div>
+        <a href="https://github.com/Kanyakrit-2544/3s-website" class="cs-link" target="_blank" rel="noopener">View on GitHub →</a>
       </div>
-      <div class="cs-body">
+    </div>
 
-        <div class="cs-block">
-          <div class="cs-block-label">The problem</div>
-          <p class="cs-text">A B2B contractor specialising in fiber optics, CCTV, networking, and PABX had no online presence. Potential clients couldn't find their services, couldn't request a quote digitally, and the team had no way to manage their project portfolio internally.</p>
-        </div>
+  </div>
+</section>
 
-        <div class="cs-block">
-          <div class="cs-block-label">What I built</div>
-          <ul class="cs-features">
-            <li>Bilingual (TH/EN) marketing site — 8 pages including 6 service detail pages, portfolio with filter + lightbox, and a contact form</li>
-            <li>Quote form that saves to database, logs to Google Sheets, and fires an email notification — all simultaneously</li>
-            <li>Custom Admin CMS at <code style="font-size:12px; background:var(--surface); padding:1px 5px; border-radius:3px;">/admin</code> — JWT login, project &amp; client management, image upload, contact inbox</li>
-            <li>Resilient frontend with bundled fallback data, so the site never breaks even if the API goes offline</li>
-            <li>Deployed on Windows Server 2022 (IIS + PM2) with full Thai-language documentation for the client</li>
-          </ul>
-        </div>
+<!-- ─── 5. Services ─── -->
+<section id="services">
+  <div class="container">
+    <p class="section-label">Services</p>
 
-        <div class="cs-block">
-          <div class="cs-block-label">Tech stack</div>
-          <table class="stack-table">
-            <tr><td>Frontend</td><td>React 18, Vite 5, Tailwind CSS 3, React Router 6</td></tr>
-            <tr><td>Backend</td><td>Node.js 20, Express 4, Sequelize 6</td></tr>
-            <tr><td>Database</td><td>MySQL 8</td></tr>
-            <tr><td>Auth</td><td>JWT + bcrypt</td></tr>
-            <tr><td>Integration</td><td>Google Apps Script (Sheets + Email)</td></tr>
-            <tr><td>Hosting</td><td>IIS + PM2 on Windows Server 2022</td></tr>
-          </table>
-        </div>
+    <div class="pricing-grid">
 
-        <div class="cs-block">
-          <div class="cs-block-label">By the numbers</div>
-          <div class="cs-metrics">
-            <div class="cs-metric">
-              <div class="cs-metric-num">2</div>
-              <div class="cs-metric-label">Languages TH/EN</div>
-            </div>
-            <div class="cs-metric">
-              <div class="cs-metric-num">6+</div>
-              <div class="cs-metric-label">Service pages</div>
-            </div>
-            <div class="cs-metric">
-              <div class="cs-metric-num">3</div>
-              <div class="cs-metric-label">Form destinations</div>
-            </div>
-            <div class="cs-metric">
-              <div class="cs-metric-num">Full</div>
-              <div class="cs-metric-label">CMS included</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="cs-block">
-          <div class="cs-block-label">Result</div>
-          <div class="cs-result">
-            The client now has a professional online presence, a working quote pipeline, and full control over their portfolio content — without needing a developer for day-to-day updates. Delivered with a complete Thai-language operations manual.
-          </div>
-        </div>
-
+      <!-- Card 1 -->
+      <div class="pricing-card">
+        <div class="pricing-name">Website</div>
+        <div class="pricing-price">ติดต่อสอบถาม</div>
+        <ul class="pricing-features">
+          <li>Landing page or corporate site</li>
+          <li>Mobile responsive</li>
+          <li>Contact form</li>
+          <li>Delivered with documentation</li>
+        </ul>
+        <a href="#contact" class="btn-outline btn-full">Get a quote</a>
       </div>
+
+      <!-- Card 2 — Featured -->
+      <div class="pricing-card featured">
+        <span class="badge">Most popular</span>
+        <div class="pricing-name">Full Build</div>
+        <div class="pricing-price">ติดต่อสอบถาม</div>
+        <ul class="pricing-features">
+          <li>Everything in Website</li>
+          <li>Admin CMS</li>
+          <li>Database + API backend</li>
+          <li>Google Sheets / email integration</li>
+          <li>Thai-language manual included</li>
+        </ul>
+        <a href="#contact" class="btn-primary btn-full">Get a quote</a>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="pricing-card">
+        <div class="pricing-name">Monthly Care</div>
+        <div class="pricing-price">ติดต่อสอบถาม</div>
+        <ul class="pricing-features">
+          <li>Website maintenance</li>
+          <li>IT Support &amp; network monitoring</li>
+          <li>Priority response</li>
+          <li>Monthly report</li>
+        </ul>
+        <a href="#contact" class="btn-outline btn-full">Get a quote</a>
+      </div>
+
     </div>
   </div>
 </section>
 
-<!-- Skills -->
+<!-- ─── Skills ─── -->
 <section id="skills">
   <div class="container">
     <p class="section-label">Skills</p>
@@ -404,7 +767,7 @@
         </div>
       </div>
       <div class="skill-group">
-        <div class="skill-group-name">IT & network</div>
+        <div class="skill-group-name">IT &amp; network</div>
         <div class="skill-tags">
           <span class="skill-tag">Network setup</span>
           <span class="skill-tag">IT Support</span>
@@ -415,7 +778,7 @@
         </div>
       </div>
       <div class="skill-group">
-        <div class="skill-group-name">Tools & integrations</div>
+        <div class="skill-group-name">Tools &amp; integrations</div>
         <div class="skill-tags">
           <span class="skill-tag">Claude AI</span>
           <span class="skill-tag">Google Apps Script</span>
@@ -429,13 +792,14 @@
   </div>
 </section>
 
-<!-- Contact -->
+<!-- ─── 7. Contact ─── -->
 <section id="contact">
   <div class="container">
     <p class="section-label">Contact</p>
     <h2>Let's work together</h2>
     <p style="color:var(--muted); font-size:15px; margin-top:8px; margin-bottom:4px;">Available for freelance projects, remote IT support, and web builds. Response within 24 hours.</p>
     <div class="contact-links">
+      <!-- TODO: update Line URL -->
       <a href="https://line.me/ti/p/gLZW4euawz" class="contact-link">
         <span class="contact-icon">💬</span>
         <div>
@@ -443,6 +807,7 @@
           <div class="contact-sub">Fastest response — preferred for Thai clients</div>
         </div>
       </a>
+      <!-- TODO: confirm email -->
       <a href="mailto:kanyakrit.bo@gmail.com" class="contact-link">
         <span class="contact-icon">✉️</span>
         <div>
@@ -457,6 +822,7 @@
           <div class="contact-sub">github.com/Kanyakrit-2544</div>
         </div>
       </a>
+      <!-- TODO: update Fastwork profile URL -->
       <a href="https://www.fastwork.co/" class="contact-link" target="_blank" rel="noopener">
         <span class="contact-icon">🔗</span>
         <div>
@@ -468,11 +834,25 @@
   </div>
 </section>
 
+<!-- ─── 6. Footer CTA ─── -->
+<div class="footer-cta">
+  <p class="footer-cta-tagline">Built with AI, shipped with care.</p>
+  <p class="footer-cta-sub">Available for freelance projects and remote IT support.</p>
+  <a href="#contact" class="btn-white">Start a project →</a>
+</div>
+
 <footer>
   <div class="container">
-    <p>© 2025 Kanyakrit · Built with AI, shipped with care.</p>
+    <p>© 2025 Kanyakrit</p>
   </div>
 </footer>
+
+<script>
+window.addEventListener('scroll', () => {
+  document.querySelector('nav').style.borderBottomColor =
+    window.scrollY > 10 ? 'var(--border)' : 'transparent';
+});
+</script>
 
 </body>
 </html>
